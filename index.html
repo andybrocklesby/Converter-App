@@ -1,0 +1,36 @@
+<!Doctype>
+<title>Andy Brocklesby | Converter App</title>
+<html>
+    <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body onload="appSetup()">
+        <!-- APP BODY -->
+        <div class="app-container">
+            <!-- INPUT SECTION -->
+            <div class="input-section flex-center">
+                <button class="toggle-theme" id="toggle-theme">Toggle Theme</button>
+                <h1 class="app-title">Metric/Imperial Unit Conversion</h1>
+                <input class="app-input" id="app-input" type="text" value="20" maxlength="3">
+                <button class="convert-btn" id="convert-btn">Convert</button>
+            </div>
+            <!-- RESULT SECTION -->
+            <div class="result-section flex-center" id="result-section">
+                <div class="result-wrapper flex-center">
+                    <div class="result-title">Length (Meter/Feet)</div>
+                    <div class="result-description" id="length-display">20 meters = 65.616 feet | 20 feet = 6.096 meters</div>
+                </div>
+                <div class="result-wrapper flex-center">
+                    <div class="result-title">Volume (Liters/Gallons)</div>
+                    <div class="result-description" id="volume-display">20 meters = 65.616 feet | 20 feet = 6.096 meters</div>
+                </div>
+                <div class="result-wrapper flex-center">
+                    <div class="result-title">Mass (Kilograms/Pounds)</div>
+                    <div class="result-description" id="mass-display">20 meters = 65.616 feet | 20 feet = 6.096 meters</div>
+                </div>
+            </div>
+        </div>
+        <!-- APP SCRIPT -->
+        <script src="index.js"></script>
+    </body>
+</html>
