@@ -4,7 +4,10 @@
 1 kilogram = 2.204 pound
 */
 
-// Elements
+// To Do:
+// [X] Refactor calculations into one function
+// [X] Remove unwanted comments
+
 const input = document.getElementById("app-input");
 const themeBtn = document.getElementById("toggle-theme");
 const convertBtn = document.getElementById("convert-btn");
@@ -12,61 +15,46 @@ const lengthDisplay = document.getElementById("length-display");
 const volumeDisplay = document.getElementById("volume-display");
 const massDisplay = document.getElementById("mass-display");
 
-// Initializing Numbers
-let feet = 0;
-let meters = 0;
-let gallons = 0;
-let liters = 0;
-let pounds = 0;
-let kilos = 0;
-
-// Calculations
-function calulateMeters(){
-    feet = input.value * 3.28084;
-    feet = feet.toFixed(3)
-    return feet;
+function calculateResult(inputValue, unitType) {
+    let result = 0;
+    
+    switch(unitType) {
+        case 'feet':
+            result = inputValue * 3.28084;
+            break;
+        case 'meters':
+            result = inputValue * 0.3048;
+            break;
+        case 'gallons':
+            result = inputValue * 0.264;
+            break;
+        case 'liters':
+            result = inputValue * 3.78541;
+            break;
+        case 'pounds':
+            result = inputValue * 2.20462;
+            break;
+        case 'kilos':
+            result = inputValue * 0.453592;
+            break;
+        default:
+            console.log("Invalid unit type!");
+            break;
+    }
+    return result.toFixed(3);
 }
 
-function calculateFeet(){
-    meters = input.value * 0.3048;
-    meters = meters.toFixed(3);
-    return meters;
-}
 
-function calculateGallons(){
-    gallons = input.value * 0.264;
-    gallons = gallons.toFixed(3);
-    return gallons;
-}
-
-function calculateLiters(){
-    liters = input.value * 3.78541;
-    liters = liters.toFixed(3);
-    return liters;
-}
-
-function calculateKilos(){
-    kilos = input.value * 0.453592;
-    kilos = kilos.toFixed(3);
-}
-
-function calculatePounds(){
-    pounds = input.value * 2.20462;
-    pounds = pounds.toFixed(3);
-    return pounds;
-}
-
-// Combining calculations into one call
 function calculateMeasurments(){
-    calulateMeters();
-    calculateFeet();
-    calculateGallons();
-    calculateLiters();
-    calculatePounds();
-    calculateKilos();
+    calculateResult(input.value, 'meters');
+    calculateResult(input.value, 'feet');
+    calculateResult(input.value, 'gallons');
+    calculateResult(input.value, 'liters');
+    calculateResult(input.value, 'pounds');
+    calculateResult(input.value, 'kilos');
 }
 
-// Setting up initial values on load
+
 function appSetup(){
     input.value = 20;
     calculateMeasurments();
@@ -77,20 +65,23 @@ function appSetup(){
     }
 }
 
-// Updating values
+
+
 function render(){
     calculateMeasurments();
-    lengthDisplay.textContent = `${input.value} meters = ${feet} feet | ${input.value} feet = ${meters} meters`;
-    volumeDisplay.textContent = `${input.value} liters = ${gallons} gallons | ${input.value} gallons = ${liters} liters`;
-    massDisplay.textContent = `${input.value} kilos = ${pounds} pounds | ${input.value} pounds = ${kilos} kilos`;
+    lengthDisplay.textContent = `${input.value} meters = ${calculateResult(input.value, 'feet')} feet | ${input.value} feet = ${calculateResult(input.value, 'meters')} meters`;
+    volumeDisplay.textContent = `${input.value} liters = ${calculateResult(input.value, 'gallons')} gallons | ${input.value} gallons = ${calculateResult(input.value, 'liters')} liters`;
+    massDisplay.textContent = `${input.value} kilos = ${calculateResult(input.value, 'pounds')} pounds | ${input.value} pounds = ${calculateResult(input.value, 'kilos')} kilos`;
 }
+
 
 // Convert Button Listener
 convertBtn.addEventListener("click", function(){
     render();
 })
 
-// Theme Toggle Section
+
+// Theme Toggle Section ----------------------------------------------------------------------
 let resultSection = document.getElementById("result-section");
 let resultWrapper = document.getElementsByClassName("result-wrapper");
 let resultTitle = document.getElementsByClassName("result-title");
@@ -133,7 +124,6 @@ function toggleTheme(){
     }
 }
 
-// Theme Button Listener
 themeBtn.addEventListener("click", function(){
     toggleTheme();
 })
